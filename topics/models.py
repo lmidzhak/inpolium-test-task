@@ -12,5 +12,5 @@ class DBTopic(Base):
     description = mapped_column(String(255), nullable=True)
 
     posts: Mapped[list["DBPost"]] = relationship(
-         "posts.models.DBPost", back_populates="topic", cascade="all, delete-orphan"
+         "DBPost", back_populates="topic", cascade="all, delete-orphan"
     )
