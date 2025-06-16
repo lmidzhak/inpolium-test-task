@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from sqlalchemy import Integer, String, Text, DateTime, ForeignKey
+from sqlalchemy import Integer, String,DateTime, ForeignKey
 from sqlalchemy.orm import relationship, Mapped, mapped_column
 
 from database import Base
@@ -19,6 +19,6 @@ class DBComment(Base):
     )
     post_id: Mapped[int] = mapped_column(ForeignKey('post.id'), nullable=False)
 
-    post = Mapped["DBPost"] = relationship(
-        "posts.models.DBPost", back_populates="comments"
+    post: Mapped["DBPost"] = relationship(
+        "DBPost", back_populates="comments"
     )
