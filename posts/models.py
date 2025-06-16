@@ -24,7 +24,7 @@ class DBPost(Base):
         'DBTopic',
         back_populates='posts'
     )
-    comments: Mapped["DBComment"] = relationship(
+    comments: Mapped[list["DBComment"]] = relationship(
         "DBComment",
         back_populates="post",
         cascade="all, delete-orphan"

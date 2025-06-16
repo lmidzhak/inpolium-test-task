@@ -1,6 +1,5 @@
-from sqlalchemy import asc, desc, select
+from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.orm import selectinload
 
 from posts import models, schemas
 from utils import get_ordering
@@ -55,7 +54,7 @@ async def get_post_by_id(db: AsyncSession, post_id: int):
 
 async def update_post(
         db: AsyncSession,
-        post: schemas.Post,
+        post: schemas.PostUpdate,
         post_id: int
 ):
     query = select(models.DBPost).where(models.DBPost.id == post_id)

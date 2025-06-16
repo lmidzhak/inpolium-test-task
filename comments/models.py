@@ -12,10 +12,10 @@ class DBComment(Base):
     id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
     text: Mapped[str] = mapped_column(String(255), nullable=False)
     created_at: Mapped[DateTime] = mapped_column(
-        DateTime, nullable=False, default=datetime.now
+        DateTime, nullable=False, default=datetime.utcnow
     )
     updated_at: Mapped[DateTime] = mapped_column(
-        DateTime, nullable=False, default=datetime.now
+        DateTime, nullable=False, default=datetime.utcnow
     )
     post_id: Mapped[int] = mapped_column(ForeignKey('post.id'), nullable=False)
 
