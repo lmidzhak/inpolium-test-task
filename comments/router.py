@@ -7,7 +7,7 @@ from comments import schemas, crud
 router = APIRouter(
     prefix="/comments",
     tags=["comments"],
-    # dependencies=[Depends(verify_token)]
+    dependencies=[Depends(verify_token)]
 )
 
 

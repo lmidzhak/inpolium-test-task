@@ -6,7 +6,7 @@ from topics import schemas, crud
 router = APIRouter(
     prefix="/topics",
     tags=["topics"],
-    # dependencies=[Depends(verify_token)]
+    dependencies=[Depends(verify_token)]
 )
 
 
