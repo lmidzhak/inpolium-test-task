@@ -1,4 +1,4 @@
-from sqlalchemy import insert, select, asc, desc
+from sqlalchemy import insert, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from utils import get_ordering

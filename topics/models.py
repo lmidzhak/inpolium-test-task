@@ -1,4 +1,4 @@
-from sqlalchemy import  Integer, String
+from sqlalchemy import Integer, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from database import Base
@@ -12,5 +12,5 @@ class DBTopic(Base):
     description = mapped_column(String(255), nullable=True)
 
     posts: Mapped[list["DBPost"]] = relationship(
-         "DBPost", back_populates="topic", cascade="all, delete-orphan"
+        "DBPost", back_populates="topic", cascade="all, delete-orphan"
     )
