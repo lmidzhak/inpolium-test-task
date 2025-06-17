@@ -57,27 +57,27 @@ async def update_post(
         post: schemas.PostUpdate,
         post_id: int
 ):
-    query = select(models.DBPost).where(models.DBPost.id == post_id)
-    result = await db.execute(query)
-    db_post = result.scalar_one_or_none()
+    db_post = await get_post_by_id(db=db, post_id=post_id)
 
     if not db_post:
         return None
+
     db_post.title = post.title
     db_post.content = post.content
     db_post.topic_id = post.topic_id
     db_post.updated_at = post.updated_at
+
     await db.commit()
     await db.refresh(db_post)
     return db_post
 
 
 async def delete_post(db: AsyncSession, post_id: int):
-    query = select(models.DBPost).where(models.DBPost.id == post_id)
-    result = await db.execute(query)
-    db_post = result.scalar_one_or_none()
+    db_post = await get_post_by_id(db=db, post_id=post_id)
+
     if not db_post:
         return None
+
     await db.delete(db_post)
     await db.commit()
     return db_post

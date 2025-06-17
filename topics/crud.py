@@ -52,12 +52,11 @@ async def update_topic(
         topic: schemas.Topic,
         topic_id: int
 ):
-    query = select(models.DBTopic).where(models.DBTopic.id == topic_id)
-    result = await db.execute(query)
-    db_topic = result.scalar_one_or_none()
+    db_topic = await get_topic_by_id(db, topic_id)
 
     if not db_topic:
         return None
+
     db_topic.name = topic.name
     db_topic.description = topic.description
     await db.commit()
@@ -66,11 +65,11 @@ async def update_topic(
 
 
 async def delete_topic(db: AsyncSession, topic_id: int):
-    query = select(models.DBTopic).where(models.DBTopic.id == topic_id)
-    result = await db.execute(query)
-    db_topic = result.scalar_one_or_none()
+    db_topic = await get_topic_by_id(db, topic_id)
+
     if not db_topic:
         return None
+
     await db.delete(db_topic)
     await db.commit()
     return db_topic

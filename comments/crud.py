@@ -52,15 +52,15 @@ async def update_comment(
         comment: schemas.CommentUpdate,
         comment_id: int
 ):
-    query = select(models.DBComment).where(models.DBComment.id == comment_id)
-    result = await db.execute(query)
-    db_comment = result.scalar_one_or_none()
+    db_comment = await get_comment_by_id(db=db, comment_id=comment_id)
 
     if not db_comment:
         return None
+
     db_comment.text = comment.text
     db_comment.post_id = comment.post_id
     db_comment.updated_at = comment.updated_at
+
     await db.commit()
     await db.refresh(db_comment)
     return db_comment
@@ -68,8 +68,10 @@ async def update_comment(
 
 async def delete_comment(db: AsyncSession, comment_id: int):
     db_comment = await get_comment_by_id(db, comment_id)
+
     if not db_comment:
         return None
+
     await db.delete(db_comment)
     await db.commit()
     return db_comment
